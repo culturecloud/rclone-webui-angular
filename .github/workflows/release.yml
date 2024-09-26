@@ -1,4 +1,4 @@
-name: Release Embed
+name: Release
 
 on:
   push:
@@ -38,7 +38,6 @@ jobs:
           zip -r embed.zip build
           mkdir -p release/${{ github.ref_name }}
           mv embed.zip release/${{ github.ref_name }}/embed.zip
-          echo '{"tag_name":"${{ github.ref_name }}","assets":[{"browser_download_url":"https://s3.yuudi.dev/rwa/embed/${{ github.ref_name }}/embed.zip"}]}' > release/version.json
 
       - name: Create Release
         id: create_release
@@ -50,11 +49,6 @@ jobs:
           release_name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
-          body: |
-            Release ${{ github.ref_name }}
-
-            Note: If you are looking for the desktop app, please go to [rwa desktop](https://github.com/yuudi/rwa-desktop/releases/latest)
-            注意：如果你在寻找桌面版，请前往 [rwa desktop](https://github.com/yuudi/rwa-desktop/releases/latest)
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -63,11 +57,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/release/${{ github.ref_name }}/embed.zip
-          asset_name: embed.zip
+          asset_name: rclone-webui-angular.zip
           asset_content_type: application/zip
-
-      - name: Upload to S3
-        uses: docker://rclone/rclone:latest
-        with:
-          args: |
-            ${{ secrets.S3_ARGS }} copy dist/release :s3:yuudi/rwa/embed
