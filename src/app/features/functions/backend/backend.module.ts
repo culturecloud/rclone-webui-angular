@@ -9,17 +9,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { BytesPipe } from 'src/app/shared/bytes.pipe';
 import { SingleClickDirective } from 'src/app/shared/single-click.directive';
 import { BackendInfoComponent } from './backend-info/backend-info.component';
 import { BackendRoutingModule } from './backend-routing.module';
 import { BackendComponent } from './backend.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
     BackendComponent,
     BackendInfoComponent,
-    BytesPipe,
     SingleClickDirective,
   ],
   imports: [
@@ -32,6 +31,7 @@ import { BackendComponent } from './backend.component';
     MatIconModule,
     MatSnackBarModule,
     MatDialogModule,
+    SharedModule
   ],
   exports: [BackendComponent],
 })

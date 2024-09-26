@@ -34,10 +34,10 @@
           {{ stat.transfers }}
         </td>
       </tr>
-      <tr>
-        <td i18n>Speed</td>
+      <tr i18n>
+        <td>Speed</td>
         <td>
-          {{ stat.speed }}
+          {{ stat.speed | bytes }}/s
         </td>
       </tr>
     </table>
